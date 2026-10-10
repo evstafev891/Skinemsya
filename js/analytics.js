@@ -77,7 +77,24 @@
     return hex;
   }
 
+  var PROJECT = 7752721; // номер счётчика, как в options.project на страницах
+
+  // Стаб-очередь из справки SberAds: вызовы top100d до загрузки скрипта счётчика
+  // (или если он заблокирован) копятся и выполняются после загрузки, а не падают с ошибкой.
+  window.top100d = window.top100d || function () {
+    (window.top100d.a = window.top100d.a || []).push(arguments);
+  };
+
   window.skAnalytics = {
+    // Отправляет целевое событие. Промис завершается чуть позже, чтобы запрос
+    // успел уйти, если сразу после события страница уходит по location.href.
+    goal: function (name, data) {
+      try {
+        window.top100d(PROJECT, 'reachGoal', name, data);
+      } catch (e) { /* аналитика не должна ломать сайт */ }
+      return new Promise(function (resolve) { setTimeout(resolve, 300); });
+    },
+
     // Добавляет телефон и user_id пользователя в параметры счётчика (options). Возвращает options.
     apply: function (options) {
       var me = readProfile();

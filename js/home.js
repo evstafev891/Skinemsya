@@ -95,7 +95,7 @@ async function start() {
     btn.disabled = true;
     try {
       const id = await store.createCollection({ title, description, target, organizer: me });
-      window.top100d(7752721, 'reachGoal', 'NewSbor');
+      await window.skAnalytics?.goal('NewSbor');
       location.href = `collection.html?id=${encodeURIComponent(id)}`;
     } catch (err) {
       btn.disabled = false;
