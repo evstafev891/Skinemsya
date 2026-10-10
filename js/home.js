@@ -1,7 +1,13 @@
-import { getStore } from './store.js';
 import {
-  getMe, initChrome, money, esc, plural, percent, parseAmount, toast, describeError,
+  describeError,
+  esc,
+  getMe, initChrome, money,
+  parseAmount,
+  percent,
+  plural,
+  toast,
 } from './common.js';
+import { getStore } from './store.js';
 
 initChrome();
 
@@ -89,6 +95,7 @@ async function start() {
     btn.disabled = true;
     try {
       const id = await store.createCollection({ title, description, target, organizer: me });
+      window.top100d?.(7752721, 'reachGoal', 'NewSbor');
       location.href = `collection.html?id=${encodeURIComponent(id)}`;
     } catch (err) {
       btn.disabled = false;
