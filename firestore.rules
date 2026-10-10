@@ -1,0 +1,85 @@
+rules_version = '2';
+
+// Правила для Cloud Firestore.
+// Вставьте этот файл целиком в Firebase Console → Firestore Database → Rules → Publish.
+//
+// Сайт рассчитан на круг знакомых: вход анонимный, номер телефона не проверяется по СМС.
+// Правила отсекают чужих ботов (нужен анонимный вход), проверяют формат данных
+// и запрещают удаление, но не могут проверить, что человек — владелец номера.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+    function validPhone(p) {
+      return p is string && p.matches('^7[0-9]{10}$');
+    }
+    function validName(n) {
+      return n is string && n.size() > 0 && n.size() <= 60;
+    }
+
+    match /users/{phone} {
+      allow read: if signedIn();
+      allow create, update: if signedIn()
+        && validPhone(phone)
+        && request.resource.data.phone == phone
+        && validName(request.resource.data.name)
+        && request.resource.data.bank is string
+        && request.resource.data.bank.size() <= 60;
+      allow delete: if false;
+    }
+
+    match /collections/{cid} {
+      allow read: if signedIn();
+
+      allow create: if signedIn()
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.description is string
+        && request.resource.data.description.size() <= 1000
+        && request.resource.data.target is number
+        && request.resource.data.target > 0
+        && request.resource.data.collected == 0
+        && request.resource.data.status == 'open'
+        && validPhone(request.resource.data.organizerPhone)
+        && request.resource.data.participantPhones == [request.resource.data.organizerPhone];
+
+      allow update: if signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['participantPhones', 'collected', 'status', 'updatedAt', 'organizerName', 'organizerBank'])
+        && request.resource.data.status in ['open', 'closed']
+        && request.resource.data.collected is number
+        && request.resource.data.participantPhones is list
+        && request.resource.data.participantPhones.size() <= 200;
+
+      allow delete: if false;
+
+      match /participants/{phone} {
+        allow read: if signedIn();
+        allow create, update: if signedIn()
+          && validPhone(phone)
+          && request.resource.data.phone == phone
+          && validName(request.resource.data.name);
+        allow delete: if false;
+      }
+
+      match /payments/{pid} {
+        allow read: if signedIn();
+        allow create: if signedIn()
+          && validPhone(request.resource.data.phone)
+          && validName(request.resource.data.name)
+          && request.resource.data.amount is number
+          && request.resource.data.amount > 0
+          && request.resource.data.amount <= 10000000
+          && request.resource.data.status == 'pending';
+        allow update: if signedIn()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'reviewedAt'])
+          && request.resource.data.status in ['pending', 'confirmed', 'rejected'];
+        allow delete: if false;
+      }
+    }
+  }
+}

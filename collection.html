@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сбор — Скинемся</title>
+<meta name="theme-color" content="#f2b705">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">К содержимому</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>Скинемся</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="index.html">Мои сборы</a>
+      <a href="profile.html"><span id="whoami">Профиль</span></a>
+      <a href="about.html">О сайте</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <p class="state" id="state">Загружаем сбор…</p>
+
+    <article id="collection" hidden>
+      <header class="c-head">
+        <h1 id="c-title"></h1>
+        <div class="c-meta" id="c-meta"></div>
+        <p class="c-desc" id="c-desc" hidden></p>
+      </header>
+
+      <section class="panel" aria-labelledby="tally-label">
+        <h2 id="tally-label" class="muted" style="font-family:var(--font-body);font-weight:500;font-size:.9375rem;margin-bottom:6px">Собрано</h2>
+        <div class="tally-figures">
+          <span class="big-sum" id="c-collected"></span>
+          <span class="of-sum">из <span id="c-target"></span></span>
+        </div>
+        <div class="bar" id="c-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+          <div class="bar-pending" id="c-bar-pending"></div>
+          <div class="bar-fill" id="c-bar-fill" style="width:0"></div>
+        </div>
+        <p class="tally-note" id="c-note"></p>
+      </section>
+
+      <!-- Не участник: присоединиться -->
+      <section class="panel" id="join-box" hidden>
+        <h2>Присоединиться к сбору</h2>
+        <p id="join-text" class="muted"></p>
+        <div class="btn-row">
+          <button class="btn btn-fill" type="button" id="join-btn">Присоединиться</button>
+          <a class="btn btn-fill" id="join-profile" href="profile.html" hidden>Указать имя и телефон</a>
+        </div>
+      </section>
+
+      <!-- Участник: перевод -->
+      <section class="panel" id="pay-box" hidden>
+        <h2 id="pay-title">Перевести организатору</h2>
+        <div id="sbp-block">
+          <div class="sbp">
+            <div>
+              <div class="sbp-phone" id="sbp-phone"></div>
+              <div class="sbp-bank" id="sbp-bank"></div>
+            </div>
+            <button class="btn btn-ghost btn-small" type="button" id="copy-phone">Скопировать номер</button>
+          </div>
+          <p class="muted" id="share-hint"></p>
+        </div>
+        <form class="pay-form" id="pay-form" novalidate>
+          <div class="field">
+            <label for="pay-amount" id="pay-label">Сколько вы перевели, ₽</label>
+            <input id="pay-amount" name="amount" inputmode="decimal" autocomplete="off" placeholder="1 500">
+          </div>
+          <button class="btn" type="submit" id="pay-submit">Отметить перевод</button>
+        </form>
+        <p class="error-text" id="pay-error"></p>
+        <div id="my-payments-wrap" hidden>
+          <h3 style="font-size:.9375rem;margin:8px 0 10px">Ваши переводы</h3>
+          <ul class="rows" id="my-payments"></ul>
+        </div>
+      </section>
+
+      <!-- Организатор: подтверждение -->
+      <section class="panel" id="review-box" hidden>
+        <h2>Ждут подтверждения</h2>
+        <p class="muted">Проверьте поступление в банковском приложении и подтвердите перевод — тогда сумма попадёт в собранное.</p>
+        <ul class="rows" id="pending-list"></ul>
+      </section>
+
+      <section class="panel" aria-labelledby="participants-label">
+        <h2 id="participants-label">Участники <span class="muted" id="p-count"></span></h2>
+        <ul class="rows" id="participants"></ul>
+      </section>
+
+      <section class="panel" aria-labelledby="invite-label">
+        <h2 id="invite-label">Пригласить в сбор</h2>
+        <div class="invite">
+          <div class="qr" id="qr" role="img" aria-label="QR-код со ссылкой на этот сбор"></div>
+          <div>
+            <p>Покажите QR-код или отправьте ссылку. Откроется эта страница с кнопкой «Присоединиться».</p>
+            <div class="btn-row">
+              <button class="btn btn-small" type="button" id="copy-link">Скопировать ссылку</button>
+              <button class="btn btn-ghost btn-small" type="button" id="share-link" hidden>Поделиться</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="organizer-box" hidden>
+        <h2>Управление сбором</h2>
+        <p class="muted" id="status-text"></p>
+        <div class="btn-row" style="margin-bottom:16px">
+          <button class="btn btn-ghost btn-small" type="button" id="toggle-status"></button>
+        </div>
+        <details id="history-details">
+          <summary>История переводов</summary>
+          <ul class="rows" id="all-payments"></ul>
+        </details>
+      </section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.</div>
+</footer>
+
+<script src="vendor/qrcode.js"></script>
+<script type="module" src="js/collection.js"></script>
+</body>
+</html>

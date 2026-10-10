@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мои сборы — Скинемся</title>
+<meta name="description" content="Сборы денег между знакомыми: кто участвует, сколько собрано, кому переводить по СБП.">
+<meta name="theme-color" content="#f2b705">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">К содержимому</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>Скинемся</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="index.html" aria-current="page">Мои сборы</a>
+      <a href="profile.html"><span id="whoami">Профиль</span></a>
+      <a href="about.html">О сайте</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <section id="welcome" hidden>
+      <h1>Скидываемся на общее дело</h1>
+      <p class="lede" style="margin-top:14px">Подарок, аренда дома на выходные, общий ужин — организатор создаёт сбор, остальные присоединяются по QR-коду и переводят деньги ему по СБП. Здесь видно, кто уже скинулся и сколько осталось.</p>
+      <div class="btn-row" style="margin-top:24px">
+        <a class="btn btn-fill" href="profile.html?next=index.html%3Fnew%3D1">Создать сбор</a>
+        <a class="btn btn-ghost" href="about.html">Как это работает</a>
+      </div>
+      <p class="muted" style="margin-top:16px;font-size:.9375rem">Сначала попросим имя и телефон для СБП — на этот номер участники будут переводить деньги. Чтобы присоединиться к чужому сбору, откройте ссылку или QR-код от организатора.</p>
+    </section>
+
+    <section id="load-fail" class="panel" hidden>
+      <h2>Страница не загрузилась</h2>
+      <p>Скрипты сайта не запустились. Частые причины:</p>
+      <ul>
+        <li>файл открыт с диска двойным кликом — откройте сайт по адресу github.io или через локальный сервер;</li>
+        <li>в <code>js/config.js</code> ошибка после вставки настроек Firebase — оставьте строку <code>export const FIREBASE_CONFIG = {</code> и замените только значения внутри скобок.</li>
+      </ul>
+      <p class="muted">Точный текст ошибки виден в консоли браузера (F12 → Console).</p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="page-head">
+        <div>
+          <h1>Мои сборы</h1>
+          <p class="lede" style="margin:8px 0 0">Сборы, в которых вы участвуете или участвовали.</p>
+        </div>
+        <button class="btn btn-fill" id="new-btn" type="button">Новый сбор</button>
+      </div>
+
+      <p class="state" id="list-state">Загружаем сборы…</p>
+
+      <div id="active-wrap" hidden>
+        <h2 class="list-heading">Идут сейчас</h2>
+        <ul class="cards" id="active-list"></ul>
+      </div>
+
+      <div id="closed-wrap" hidden>
+        <h2 class="list-heading">Завершённые</h2>
+        <ul class="cards" id="closed-list"></ul>
+      </div>
+
+      <div class="empty" id="empty" hidden>
+        <h2>Сборов пока нет</h2>
+        <p>Создайте сбор и покажите друзьям QR-код. Или попросите организатора прислать ссылку на его сбор.</p>
+        <button class="btn" type="button" id="empty-new-btn">Создать сбор</button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<dialog id="new-dialog" aria-labelledby="new-title">
+  <form id="new-form" novalidate>
+    <h2 id="new-title">Новый сбор</h2>
+    <div class="field">
+      <label for="f-title">Название</label>
+      <input id="f-title" name="title" maxlength="100" required placeholder="Подарок Лене на день рождения" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="f-target">Сколько нужно собрать, ₽</label>
+      <input id="f-target" name="target" inputmode="decimal" required placeholder="15 000" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="f-desc">Описание</label>
+      <textarea id="f-desc" name="description" maxlength="1000" placeholder="Что покупаем, до какого числа скинуться"></textarea>
+      <p class="hint">Необязательно.</p>
+    </div>
+    <p class="error-text" id="new-error"></p>
+    <div class="btn-row">
+      <button class="btn" type="submit" id="new-submit">Создать сбор</button>
+      <button class="btn btn-ghost" type="button" id="new-cancel">Отмена</button>
+    </div>
+    <p class="hint muted" style="margin-top:16px;font-size:.875rem">Деньги будут переводить вам по СБП на номер из профиля.</p>
+  </form>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.</div>
+</footer>
+
+<script type="module" src="js/home.js"></script>
+<script>
+  // Модули выполняются до события load. Если ни один раздел не показан — скрипты упали.
+  window.addEventListener('load', function () {
+    if (document.getElementById('welcome').hidden && document.getElementById('dashboard').hidden) {
+      document.getElementById('load-fail').hidden = false;
+    }
+  });
+</script>
+</body>
+</html>

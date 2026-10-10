@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Профиль — Скинемся</title>
+<meta name="theme-color" content="#f2b705">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">К содержимому</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>Скинемся</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="index.html">Мои сборы</a>
+      <a href="profile.html" aria-current="page"><span id="whoami">Профиль</span></a>
+      <a href="about.html">О сайте</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <div class="page-head">
+      <div>
+        <h1>Профиль</h1>
+        <p class="lede" style="margin:8px 0 0" id="profile-lede">По номеру телефона вас узнают в сборах. На этот же номер вам переводят деньги по СБП, когда вы организатор.</p>
+      </div>
+    </div>
+
+    <div class="panel profile-card">
+      <div class="who-line" id="who-line" hidden>
+        <span class="avatar" id="who-avatar" aria-hidden="true"></span>
+        <div>
+          <div class="row-name" id="who-name"></div>
+          <div class="row-sub" id="who-phone"></div>
+        </div>
+      </div>
+
+      <form id="profile-form" novalidate>
+        <div class="field">
+          <label for="p-phone">Телефон для СБП</label>
+          <input id="p-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 900 123-45-67" required>
+          <p class="hint" id="phone-hint">Если вы уже пользовались сайтом на другом устройстве, введите тот же номер — имя подтянется.</p>
+        </div>
+        <div class="field">
+          <label for="p-name">Как вас называть</label>
+          <input id="p-name" name="name" autocomplete="name" maxlength="60" placeholder="Илья" required>
+          <p class="hint">Это имя увидят остальные участники сборов.</p>
+        </div>
+        <div class="field">
+          <label for="p-bank">Банк для переводов</label>
+          <input id="p-bank" name="bank" maxlength="60" placeholder="Т-Банк" autocomplete="off">
+          <p class="hint">Необязательно. Подскажет участникам, какой банк выбрать в СБП.</p>
+        </div>
+        <p class="error-text" id="profile-error"></p>
+        <div class="btn-row">
+          <button class="btn" type="submit" id="profile-submit">Сохранить</button>
+          <button class="btn btn-ghost" type="button" id="logout" hidden>Выйти на этом устройстве</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.</div>
+</footer>
+
+<script type="module" src="js/profile.js"></script>
+</body>
+</html>
