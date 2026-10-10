@@ -12,12 +12,14 @@
 <link rel="stylesheet" href="css/style.css">
 
 <!-- Top100 (Kraken) Counter -->
+ <script src="js/analytics.js"></script>
 <script>
     (function (w, d, c) {
     (w[c] = w[c] || []).push(function() {
         var options = {
             project: 7752721,
         };
+        if (window.skAnalytics) { window.skAnalytics.apply(options); } 
         try {
             w.top100Counter = new top100(options);
         } catch(e) { }

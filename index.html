@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
+<script src="js/analytics.js"></script>
   <!-- Top100 (Kraken) Counter -->
 <script>
     (function (w, d, c) {
@@ -20,6 +21,7 @@
             project: 7752721,
             widgetColor: "3c3a3c",
         };
+        if (window.skAnalytics) { window.skAnalytics.apply(options); }
         try {
             w.top100Counter = new top100(options);
         } catch(e) { }
