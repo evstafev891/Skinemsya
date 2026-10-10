@@ -54,6 +54,7 @@ js/config.js       — настройки Firebase
 js/store.js        — работа с данными (Firestore или демо-режим)
 js/common.js       — профиль на устройстве, форматирование телефона и сумм
 js/home.js, js/profile.js, js/collection.js — логика страниц
+js/analytics.js    — параметры счётчика Топ-100: phone и user_id (SHA-256 от телефона) авторизованного пользователя
 vendor/qrcode.js   — генератор QR-кодов (qrcode-generator 1.4.4, MIT)
 firestore.rules    — правила безопасности Firestore
 ```
