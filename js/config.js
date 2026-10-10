@@ -6,10 +6,16 @@
 // только в этом браузере и другим людям не видны.
 
 export const FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyDeZVdpl5SH09nmOxCdWzqxqQvy4nSa2ms",
+
+  authDomain: "skinemsya-271c3.firebaseapp.com",
+
+  projectId: "skinemsya-271c3",
+
+  storageBucket: "skinemsya-271c3.firebasestorage.app",
+
+  messagingSenderId: "140114610240",
+
+  appId: "1:140114610240:web:cfb44a6802e5b05cc5b7a5"
+
 };
