@@ -1,7 +1,13 @@
-import { getStore } from './store.js';
 import {
-  getMe, setMe, clearMe, initChrome, normalizePhone, formatPhone, toast, describeError,
+  clearMe,
+  describeError,
+  formatPhone,
+  getMe,
+  initChrome, normalizePhone,
+  setMe,
+  toast,
 } from './common.js';
+import { getStore } from './store.js';
 
 initChrome();
 
@@ -85,6 +91,7 @@ form.addEventListener('submit', async (e) => {
     showWho(user);
     $('whoami').textContent = name;
     $('logout').hidden = false;
+    window.top100d?.(7752721, 'reachGoal', 'NewUser');
     toast('Профиль сохранён');
   } catch (e2) {
     err.textContent = describeError(e2);
