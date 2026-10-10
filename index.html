@@ -41,6 +41,11 @@
   <img src="//counter.rambler.ru/top100.cnt?pid=7752721" alt="Топ-100" />
 </noscript>
 <!-- END Top100 (Kraken) Counter -->
+    <script>
+     window.addEventListener('load', function () {
+       window.top100Counter?.drawLogoTo('top100_widget');
+     });
+   </script>
  
 </head>
 <body>
@@ -139,6 +144,7 @@
 
 <footer class="site-footer">
   <div class="wrap">Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.</div>
+  <div id="top100_widget"></div>
 </footer>
 
 <script type="module" src="js/home.js"></script>
