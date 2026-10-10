@@ -87,7 +87,7 @@ form.addEventListener('submit', async (e) => {
     const user = { phone, name, bank };
     await store.saveUser(user);
     setMe(user);
-    window.top100d?.(7752721, 'reachGoal', 'NewUser');
+    window.top100d(7752721, 'reachGoal', 'NewUser');
     if (next) { location.href = next; return; }
     showWho(user);
     $('whoami').textContent = name;
