@@ -65,6 +65,7 @@ _tmr.push({id: "3800825", type: "pageView", start: (new Date()).getTime()});
 <!-- /Top.Mail.Ru counter -->
 
 
+
 </head>
 <body>
 
@@ -111,13 +112,30 @@ _tmr.push({id: "3800825", type: "pageView", start: (new Date()).getTime()});
 </main>
 
 <footer class="site-footer">
-  <div class="wrap">Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.</div>
-  <div id="top100_widget"></div>
+  <div class="wrap">
+    Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.
+
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:14px;">
+      <div id="top100_widget" style="position:static; min-width:88px; min-height:31px;"></div>
+      <div style="min-width:88px; min-height:31px;"><!--LiveInternet counter--><a href="https://www.liveinternet.ru/click"
+      target="_blank"><img id="licnt5DE4" width="88" height="31" style="border:0"
+      title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+      alt=""/></a><script>(function(d,s){d.getElementById("licnt5DE4").src=
+      "https://counter.yadro.ru/hit?t18.2;r"+escape(d.referrer)+
+      ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+      (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+      ";h"+escape(d.title.substring(0,150))+";"+Math.random()})
+      (document,screen)</script><!--/LiveInternet--></div>
+    </div>
+  </div>
 </footer>
 
 <script type="module">
   import { initChrome } from './js/common.js';
   initChrome();
 </script>
+
+
 </body>
 </html>
