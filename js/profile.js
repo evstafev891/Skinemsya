@@ -85,9 +85,13 @@ form.addEventListener('submit', async (e) => {
   try {
     const store = await getStore();
     const user = { phone, name, bank };
+    // Регистрация — первое сохранение номера, которого ещё нет в базе.
+    // Если проверить не удалось, регистрацию не засчитываем, чтобы не было лишних целей.
+    const isNew = await store.getUser(phone).then((u) => !u, () => false);
     await store.saveUser(user);
     setMe(user);
     const sent = window.skAnalytics?.goal('NewUser');
+    if (isNew) window.skAnalytics?.tmrGoal('mt_registration');
     if (next) { await sent; location.href = next; return; }
     showWho(user);
     $('whoami').textContent = name;
