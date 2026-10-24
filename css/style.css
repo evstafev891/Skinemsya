@@ -293,6 +293,32 @@ textarea { min-height: 84px; resize: vertical; }
   .bar > .bar-fill { transition: none; }
 }
 
+/* ------------------------------------------------------- Статистика */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.stat {
+  border: var(--edge) solid var(--ink);
+  border-radius: var(--r-lg);
+  padding: 18px 20px;
+  min-width: 0;
+}
+.stat-label { font-weight: 600; font-size: 0.9375rem; }
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  margin: 10px 0 6px;
+  overflow-wrap: anywhere;
+}
+.stat-note { color: var(--muted); font-size: 0.875rem; }
+
 /* ---------------------------------------------------------- Список сборов */
 
 .list-heading { margin: 32px 0 12px; }
