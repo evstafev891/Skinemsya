@@ -86,12 +86,17 @@ form.addEventListener('submit', async (e) => {
     const store = await getStore();
     const user = { phone, name, bank };
     // Регистрация — первое сохранение номера, которого ещё нет в базе.
-    // Если проверить не удалось, регистрацию не засчитываем, чтобы не было лишних целей.
-    const isNew = await store.getUser(phone).then((u) => !u, () => false);
+    // Вход — номер уже есть в базе, а на этом устройстве с ним ещё не входили
+    // (новое устройство, вход после «Выйти», смена номера). Правка профиля — ни то ни другое.
+    // Если проверить базу не удалось (null), цели не отправляем, чтобы не было лишних.
+    const existed = await store.getUser(phone).then((u) => !!u, () => null);
+    const current = getMe(); // не me: профиль мог сохраниться уже на этой странице
+    const loggedIn = !!current && current.phone === phone;
     await store.saveUser(user);
     setMe(user);
     const sent = window.skAnalytics?.goal('NewUser');
-    if (isNew) window.skAnalytics?.tmrGoal('mt_registration');
+    if (existed === false) window.skAnalytics?.tmrGoal('mt_registration');
+    if (existed === true && !loggedIn) window.skAnalytics?.tmrGoal('mt_login');
     if (next) { await sent; location.href = next; return; }
     showWho(user);
     $('whoami').textContent = name;
