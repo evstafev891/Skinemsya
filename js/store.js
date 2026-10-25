@@ -35,7 +35,7 @@ async function createFirebaseStore() {
   if (!auth.currentUser) await authMod.signInAnonymously(auth);
   const db = F.getFirestore(app);
   const {
-    doc, collection, getDoc, setDoc, updateDoc, addDoc, writeBatch,
+    doc, collection, getDoc, getDocs, setDoc, updateDoc, addDoc, writeBatch,
     onSnapshot, query, where, serverTimestamp, arrayUnion, increment,
   } = F;
 
@@ -127,6 +127,19 @@ async function createFirebaseStore() {
     watchMyCollections(phone, cb, onError) {
       const q = query(collection(db, 'collections'), where('participantPhones', 'array-contains', phone));
       return onSnapshot(q, (qs) => cb(qs.docs.map(toCollection)), onError);
+    },
+
+    // Для страницы статистики: сборы пользователя и его переводы во всех этих сборах.
+    async getMyStats(phone) {
+      const qs = await getDocs(query(collection(db, 'collections'), where('participantPhones', 'array-contains', phone)));
+      const collections = qs.docs.map(toCollection);
+      const perCollection = await Promise.all(collections.map(async (c) => {
+        const ps = await getDocs(query(collection(colRef(c.id), 'payments'), where('phone', '==', phone)));
+        return ps.docs.map((d) => ({
+          id: d.id, collectionId: c.id, ...d.data(), amount: Number(d.data().amount) || 0, createdAt: toMs(d.data().createdAt),
+        }));
+      }));
+      return { collections, payments: perCollection.flat() };
     },
   };
 }
@@ -237,6 +250,16 @@ function createLocalStore() {
           .filter(([, c]) => (c.participantPhones || []).includes(phone))
           .map(([id, c]) => publicCollection(id, c)));
       });
+    },
+
+    async getMyStats(phone) {
+      const mine = Object.entries(load().collections).filter(([, c]) => (c.participantPhones || []).includes(phone));
+      return {
+        collections: mine.map(([id, c]) => publicCollection(id, c)),
+        payments: mine.flatMap(([id, c]) => Object.entries(c.payments || {})
+          .filter(([, p]) => p.phone === phone)
+          .map(([pid, p]) => ({ id: pid, collectionId: id, ...p }))),
+      };
     },
   };
 }

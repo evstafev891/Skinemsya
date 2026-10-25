@@ -1,4 +1,4 @@
-// Передача данных пользователя счётчику SberAds (Топ-100) — учебный проект.
+// Передача данных пользователя счётчикам SberAds (Топ-100) и Top.Mail.Ru — учебный проект.
 //
 // Это классический скрипт, не модуль: он должен выполниться ДО кода счётчика,
 // поэтому подключается обычным <script src="js/analytics.js"></script> перед ним.
@@ -78,6 +78,7 @@
   }
 
   var PROJECT = 7752721; // номер счётчика, как в options.project на страницах
+  var TMR_ID = '3800825'; // номер счётчика Top.Mail.Ru, как в _tmr.push на страницах
 
   // Стаб-очередь из справки SberAds: вызовы top100d до загрузки скрипта счётчика
   // (или если он заблокирован) копятся и выполняются после загрузки, а не падают с ошибкой.
@@ -93,6 +94,17 @@
         window.top100d(PROJECT, 'reachGoal', name, data);
       } catch (e) { /* аналитика не должна ломать сайт */ }
       return new Promise(function (resolve) { setTimeout(resolve, 300); });
+    },
+
+    // Отправляет цель в Top.Mail.Ru. userid — тот же идентификатор, что user_id для SberAds.
+    // Если скрипт счётчика ещё не загрузился, событие подождёт в очереди _tmr.
+    tmrGoal: function (goal) {
+      try {
+        var me = readProfile();
+        var event = { id: TMR_ID, type: 'reachGoal', goal: goal };
+        if (me) event.userid = sha256(String(me.phone));
+        (window._tmr = window._tmr || []).push(event);
+      } catch (e) { /* аналитика не должна ломать сайт */ }
     },
 
     // Добавляет телефон и user_id пользователя в параметры счётчика (options). Возвращает options.

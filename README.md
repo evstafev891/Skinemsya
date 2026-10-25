@@ -7,6 +7,7 @@
 - `index.html` — мои сборы: идущие и завершённые, кнопка «Новый сбор»;
 - `profile.html` — имя, телефон для СБП, банк (необязательно);
 - `about.html` — о сайте;
+- `stats.html` — статистика пользователя: в скольких сборах участвовал, сколько организовал, сколько денег отправил;
 - `collection.html?id=…` — сбор: собранная и целевая сумма, участники, QR-код для присоединения, отметка переводов, подтверждение переводов организатором.
 
 ## Как это работает
@@ -48,12 +49,12 @@ python3 -m http.server 8000
 ## Структура
 
 ```
-index.html, profile.html, about.html, collection.html
+index.html, profile.html, about.html, collection.html, stats.html
 css/style.css
 js/config.js       — настройки Firebase
 js/store.js        — работа с данными (Firestore или демо-режим)
 js/common.js       — профиль на устройстве, форматирование телефона и сумм
-js/home.js, js/profile.js, js/collection.js — логика страниц
+js/home.js, js/profile.js, js/collection.js, js/stats.js — логика страниц
 js/analytics.js    — параметры счётчика Топ-100: phone и user_id (SHA-256 от телефона) авторизованного пользователя
 vendor/qrcode.js   — генератор QR-кодов (qrcode-generator 1.4.4, MIT)
 firestore.rules    — правила безопасности Firestore

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Статистика — Скинемся</title>
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/analytics.js"></script>
+  <!-- Top100 (Kraken) Counter -->
+<script>
+    (function (w, d, c) {
+    (w[c] = w[c] || []).push(function() {
+        var options = {
+            project: 7752721,
+            widgetColor: "3c3a3c",
+        };
+        if (window.skAnalytics) { window.skAnalytics.apply(options); }
+        try {
+            w.top100Counter = new top100(options);
+        } catch(e) { }
+    });
+    var n = d.getElementsByTagName("script")[0],
+    s = d.createElement("script"),
+    f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src =
+    (d.location.protocol == "https:" ? "https:" : "http:") +
+    "//st.top100.ru/top100/top100.js";
+
+    if (w.opera == "[object Opera]") {
+    d.addEventListener("DOMContentLoaded", f, false);
+} else { f(); }
+})(window, document, "_top100q");
+</script>
+<noscript>
+  <img src="//counter.rambler.ru/top100.cnt?pid=7752721" alt="Топ-100" />
+</noscript>
+<!-- END Top100 (Kraken) Counter -->
+    <script>
+     window.addEventListener('load', function () {
+       window.top100Counter?.drawLogoTo('top100_widget');
+     });
+   </script>
+
+   <!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3800825", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3800825;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+ 
+
+</head>
+<body>
+
+ 
+<a class="skip" href="#main">К содержимому</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>Скинемся</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="index.html">Мои сборы</a>
+      <a href="stats.html" aria-current="page">Статистика</a>
+      <a href="profile.html"><span id="whoami">Профиль</span></a>
+      <a href="about.html">О сайте</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <section id="guest" hidden>
+      <h1>Статистика</h1>
+      <p class="lede" style="margin-top:14px">Здесь будет видно, в скольких сборах вы участвовали, сколько организовали и сколько денег отправили. Чтобы посмотреть статистику, укажите имя и телефон в профиле.</p>
+      <div class="btn-row" style="margin-top:24px">
+        <a class="btn btn-fill" href="profile.html">Заполнить профиль</a>
+      </div>
+    </section>
+
+    <section id="stats" hidden>
+      <div class="page-head">
+        <div>
+          <h1>Статистика</h1>
+          <p class="lede" style="margin:8px 0 0">Ваши сборы и переводы за всё время. Отправленными считаются переводы, которые подтвердил организатор.</p>
+        </div>
+      </div>
+
+      <p class="state" id="state">Считаем…</p>
+
+      <div id="content" hidden>
+        <div class="stats" id="tiles"></div>
+
+        <div id="sent-wrap" hidden>
+          <h2 class="list-heading">Переводы по сборам</h2>
+          <div class="panel">
+            <ul class="rows" id="sent-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    Сайт не принимает и не хранит деньги — переводы идут напрямую организатору по СБП.
+
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:14px;">
+      <div id="top100_widget" style="position:static; min-width:88px; min-height:31px;"></div>
+      <div style="min-width:88px; min-height:31px;"><!--LiveInternet counter--><a href="https://www.liveinternet.ru/click"
+      target="_blank"><img id="licnt5DE4" width="88" height="31" style="border:0"
+      title="LiveInternet: показано число просмотров за 24 часа, посетителей за 24 часа и за сегодня"
+      src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"
+      alt=""/></a><script>(function(d,s){d.getElementById("licnt5DE4").src=
+      "https://counter.yadro.ru/hit?t18.2;r"+escape(d.referrer)+
+      ((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+
+      (s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+
+      ";h"+escape(d.title.substring(0,150))+";"+Math.random()})
+      (document,screen)</script><!--/LiveInternet--></div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/stats.js"></script>
+</body>
+</html>
